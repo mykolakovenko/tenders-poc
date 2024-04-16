@@ -1,34 +1,22 @@
-import axios from 'axios';
+import { TendersService } from './src/tenders.js';
 
-const numberOfDays = 365;
-
+const numberOfDays = 1;
 const startFromOffset = (new Date()).getTime() / 1000 - 86400 * numberOfDays;
 
-const getTenders = async (offset) => {
-  const response = await axios.get(`https://public-api.prozorro.gov.ua/api/2.5/tenders?limit=1000&offset=${offset}`);
-
-  const number = response.data.data.length;
-  if (number === 0) {
-    return { number }
-  }
-
-  const nextOffset = response.data.next_page.offset;
-
-  return { number, nextOffset };
-}
-
+const tenderService = new TendersService();
 let result = 0;
 
 let nextOffset = startFromOffset;
 while (nextOffset) {
-  const response = await getTenders(nextOffset);
+  const response = await tenderService.getTenders(nextOffset);
   console.log({
-    number: response.number,
+    number: response.data.length,
     nextOffset: response.nextOffset ? (new Date(response.nextOffset * 1000)).toISOString() : null,
   });
 
-  result += response.number;
+  result += response.data.length;
   nextOffset = response.nextOffset;
 }
 
 console.log(`number of updated tenders over last ${numberOfDays} day(s) is ${result}`);
+
