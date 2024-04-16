@@ -1,4 +1,11 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
+
+axiosRetry(axios, {
+  retries: 20,
+  retryDelay: axiosRetry.exponentialDelay,
+  retryCondition: ({ response }) => response.status === 429,
+});
 
 
 export class TendersService {

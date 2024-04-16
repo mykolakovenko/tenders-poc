@@ -1,7 +1,6 @@
 import { TendersService } from './src/tenders.js';
 
 import { Elasticsearch } from './src/elasticsearch.js';
-import { wait } from './src/wait.js';
 
 const elasticService = new Elasticsearch({
   indexName: 'tenders',
@@ -10,10 +9,10 @@ const elasticService = new Elasticsearch({
 elasticService.deleteIndex();
 
 
-const numberOfDays = 100;
+const numberOfDays = 365;
 const startFromOffset = (new Date()).getTime() / 1000 - 86400 * numberOfDays;
 
-const tenderService = new TendersService(50);
+const tenderService = new TendersService(100);
 
 
 let nextOffset = startFromOffset;
@@ -26,6 +25,7 @@ while (nextOffset) {
     const { tenderID, status, title, dateCreated, owner, value } = rawTender;
 
     return {
+      id,
       tenderID,
       status,
       title,
@@ -44,8 +44,6 @@ while (nextOffset) {
     numberIndexed: elasticResponse.successful,
     nextOffset: tendersList.nextOffset ? (new Date(tendersList.nextOffset * 1000)).toISOString() : null,
   });
-
-  await wait(300);
 }
 
 
