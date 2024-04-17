@@ -6,7 +6,7 @@ const msInDay = 86400000;
 
 const elasticService = new Elasticsearch({
   indexName: 'tenders',
-  apiKey: 'WmF1czVZNEJlSHJxcEVyNjBSVFE6UV9jN0ttUGlTUm1uUi0wdm1vOU1BQQ=='
+  apiKey: 'WmF1czVZNEJlSHJxcEVyNjBSVFE6UV9jN0ttUGlTUm1uUi0wdm1vOU1BQQ==' // Don't worry, it's local
 });
 
 const groupingInterval = argv[2] || 'month';
