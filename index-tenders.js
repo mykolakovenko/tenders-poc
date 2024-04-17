@@ -6,7 +6,7 @@ const elasticService = new Elasticsearch({
   indexName: 'tenders',
   apiKey: 'WmF1czVZNEJlSHJxcEVyNjBSVFE6UV9jN0ttUGlTUm1uUi0wdm1vOU1BQQ=='
 });
-elasticService.deleteIndex();
+// elasticService.deleteIndex();
 
 
 const numberOfDays = 365;
