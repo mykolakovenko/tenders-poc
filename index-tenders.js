@@ -9,7 +9,7 @@ const procuringEntitiesElasticService = new Elasticsearch({ indexName: 'procurin
 
 console.time('ExecutionTime');
 
-const numberOfDays = 1;
+const numberOfDays = 365;
 const startFromOffset = (new Date()).getTime() / 1000 - 86400 * numberOfDays;
 
 const tenderService = new TendersService(100);
