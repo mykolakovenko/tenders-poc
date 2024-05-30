@@ -19,7 +19,7 @@ export class Elasticsearch {
   indexDocuments(documentsList) {
     return this.#client.helpers.bulk({
       datasource: documentsList,
-      onDocument: (doc) => ({ index: { _index: this.#indexName }}),
+      onDocument: (doc) => ({ index: { _index: this.#indexName, _id: doc.id }}),
     });
   }
 
