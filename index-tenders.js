@@ -7,6 +7,7 @@ const tendersElasticService = new Elasticsearch({ indexName: 'tenders_with_parti
 const suppliersElasticService = new Elasticsearch({ indexName: 'suppliers', apiKey });
 const procuringEntitiesElasticService = new Elasticsearch({ indexName: 'procuring_entities', apiKey });
 
+console.time('ExecutionTime');
 
 const numberOfDays = 1;
 const startFromOffset = (new Date()).getTime() / 1000 - 86400 * numberOfDays;
@@ -85,3 +86,5 @@ while (nextOffset) {
     nextOffset: tendersList.nextOffset ? (new Date(tendersList.nextOffset * 1000)).toISOString() : null,
   });
 }
+
+console.timeEnd('ExecutionTime');
